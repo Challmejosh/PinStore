@@ -12,7 +12,7 @@ const Page = async () => {
     const image = user?.image
     return ( 
         <div className="flex flex-col gap-8 items-center justify-center  ">
-            <img src={image? image : "/user.png"} alt="user" className="w-[70px] rounded-[10px] object-contain h-[70px] " />
+            <img src={image? image : "/user.png"} alt="user"} className="w-[70px] rounded-[10px] object-contain h-[70px] " />
             <p className="font-semibold">{user?.name}</p>
             <div className="flex flex-col w-full items-center justify-center ">
                 <div className="loader"></div>
