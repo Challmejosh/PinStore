@@ -2,13 +2,7 @@
 import Search from "@/component/search";
 
 
-type PageProps = {
-  params: {
-    search: string;
-  };
-};
-const Page = ({params}:PageProps) => {
-    const { search } = params 
+const Page = ({search}:{search: string}) => {
     return(
         <div className="">
             <Search search={search} />

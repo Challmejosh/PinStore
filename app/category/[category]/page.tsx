@@ -1,13 +1,9 @@
 import Product from "@/component/categoryproduct";
 
 
-type PageProps = {
-  params: {
-    category: string;
-  };
-};
-const Page = ({params}: PageProps) => {
-    const {category} = params
+
+const Page = ({category}: {category: string}) => {
+    
     return ( 
         <div className="">
             {!category && <div className="loader"></div>}
