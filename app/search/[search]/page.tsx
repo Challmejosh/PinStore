@@ -2,7 +2,8 @@
 import Search from "@/component/search";
 
 
-async function Page({ params: { search } }: { params: { search: string } }) {
+export default async function Page({ params}: { params: { search: string } }) {
+    const { search } = params
     return(
         <div className="">
             <Search search={search} />
@@ -10,4 +11,3 @@ async function Page({ params: { search } }: { params: { search: string } }) {
     )
 }
  
-export default Page;
