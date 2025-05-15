@@ -30,7 +30,7 @@ const Product = ({topic, subtext, text}: Prop) => {
             <Topic topic={topic} subtext={subtext} category={text} />
             {pending && 
             <div className="h-[300px] flex items-center justify-center ">
-                Loading...
+                <div className="loader"></div>
             </div>
             }
             {!pending && (
@@ -53,7 +53,7 @@ const Product = ({topic, subtext, text}: Prop) => {
                                                 <div className="px-2 py-1 bg-[#DC2626] rounded-full flex items-center justify-center ">
                                                     {item?.stock}
                                                 </div>
-                                                <Heart onClick={()=>addWishlist(item)} />
+                                                <Heart className="cursor-pointer" onClick={()=>addWishlist(item)} />
                                             </div>}
                                             <p className="w-full h-[150px] flex items-center justify-center ">
                                                 <img src={item?.images[0]} alt={item?.title} className="object-contain" />
@@ -126,7 +126,7 @@ const Product = ({topic, subtext, text}: Prop) => {
                                                 <div className="px-2 py-1 bg-[#DC2626] rounded-full flex items-center justify-center ">
                                                     {item?.weight}
                                                 </div>
-                                                <Heart />
+                                                <Heart onClick={()=>addWishlist(item)} className="cursor-pointer" />
                                             </div>}
                                             <p className="w-full h-[150px] flex items-center justify-center ">
                                                 <img src={item?.images[0]} alt={item?.title} className="object-contain" />

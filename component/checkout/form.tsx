@@ -1,8 +1,12 @@
 "use client"
 import { Box } from "lucide-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context";
+import { useRouter } from "next/navigation";
+import { PaystackButton } from "react-paystack";
 
 const Form = () => {
+    const {cartTotal} = useContext(AppContext)
     const [firstName, setFirstName] = useState<string>(""); 
     const [lastName, setLastName] = useState<string>(""); 
     const [email, setEmail] = useState<string>("");
@@ -12,15 +16,37 @@ const Form = () => {
     const [town, setTown] = useState<string>("");
     const [country, setCountry] = useState<string>("");
     const [state, setstate] = useState<string>("");
-    const [phone, setPhone] = useState<number>("");
+    const [phone, setPhone] = useState<number>();
     const [zipCode, setZipCode] = useState<string>("");
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>,firstName:string,lastName:string,email:string,street:string,apartment:string,town:string,phone:number,zipCode:string)=>{
+    const router = useRouter()
+    const submit = ()=>{
+        router.push('/')
+    }
+    const success = ()=>{
+        submit()
+    }
+    const cancel = ()=>{
+        submit()
+    }
+    const error = ()=>{
+        submit()
+    }
+    const value = {
+            email: email,
+            amount: cartTotal,
+            publicKey: 'pk_test_ee35b8f44c715c5fffad4db74ae73ebf2c8cd566',
+             ref: "unique-transaction-ref-" + new Date().getTime(),
+            currency: "NGN",
+            text: "Place Order",
+            onSuccess:()=> success(),
+            onClose: ()=> cancel(),
+            onError: ()=> error() 
+        }
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
-        const all = `firstName: ${firstName} lastName:${lastName} email: ${email} street: ${street},apartment: ${apartment},town: ${town},phone: ${phone},zipCode: ${zipCode}`
-        console.log(all)
     }
     return ( 
-        <form onSubmit={(e: React.FormEvent<HTMLFormElement>)=>handleSubmit(e,firstName, lastName,email,street,apartment,town,phone,zipCode)} className="w-full flex flex-col gap-3 items-start justify-start  ">
+        <form onSubmit={(e: React.FormEvent<HTMLFormElement>)=>handleSubmit(e)} className="w-full flex flex-col gap-3 items-start justify-start  ">
             <div className="w-full border border-[#FCA1A1] flex flex-col gap-2 items-start justify-center p-3 rounded-[5px] bg-[#FFF5F5] ">
                 <div className="flex items-center justify-start gap-2 ">
                     <Box />
@@ -99,7 +125,7 @@ const Form = () => {
                         </div>
                         <div className="w-full">
                             <label htmlFor="email" className="">Order note (optional) </label>
-                            <textarea id="email" className="w-full p-2 min-h-[80px] border flex border-[#D1D5DB] rounded-[8px]  " type="email" placeholder="" value={email} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setEmail(e.target.value)} />
+                            <textarea id="email" className="w-full p-2 min-h-[80px] border flex border-[#D1D5DB] rounded-[8px]  "  placeholder="" value={email} onChange={(e: React.ChangeEvent<HTMLTextAreaElement>)=>setEmail(e.target.value)} />
                         </div>
                 </div>
                 <div className="bg-[#E5E7EB] rounded-[10px] p-3 border border-[#E5E7EB] shadow-sm flex flex-col items-start justify-start gap-2 ">
@@ -133,9 +159,7 @@ const Form = () => {
                         </label>
                     </div>
                     {/* order button */}
-                    <button type="submit" className="w-full cursor-pointer flex items-center justify-center bg-[#634C9F] px-5 py-2 rounded-[10px]  ">
-                        <p className="text-white text-sm">Place order</p>
-                    </button>
+                    <PaystackButton  className="w-full cursor-pointer flex items-center justify-center bg-[#634C9F] px-5 py-2 rounded-[10px]  " {...value} />
                 </div>
             </div>
         </form>

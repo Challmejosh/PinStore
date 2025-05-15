@@ -1,4 +1,4 @@
-import Product from "@/component/product";
+import Product from "@/component/categoryproduct";
 // import useFetch from "@/component/useFetch";
 
 interface Prop {
@@ -10,7 +10,7 @@ const Page = async ({params}: Prop) => {
     const {category} = await params
     return ( 
         <div className="">
-            {!category && <div className="">Loading again...</div>}
+            {!category && <div className="loader"></div>}
             {category && (<Product text={category} />)}
         </div>
      );

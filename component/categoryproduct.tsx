@@ -25,14 +25,17 @@ const Product = ({text}: Prop) => {
         <div className="flex flex-col  md:bg-transparent gap-2">
             {pending && 
             <div className="h-full flex items-center justify-center ">
-                Loading...
+                <div className="loader"></div>
             </div>
             }
             {!pending && (
                 <div className="">
                     {(!data || data?.length <= 0) && 
                     (
-                        <div>empty</div>
+                        <div className="flex flex-col items-center justify-center w-full h-full  ">
+                            <div className="loader"></div>
+                            <div className="">Not Found</div>
+                        </div>
                     )
                     }
                 </div>

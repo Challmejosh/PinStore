@@ -9,9 +9,6 @@ const Searchbar = () => {
     const router = useRouter()
     const handleSearch = (e: React.FormEvent<HTMLFormElement>,input:string)=>{
         e.preventDefault();
-        if(!input){
-            alert("empty search")
-        }
         if(input){
             router.push(`/search/${input}`)
         }

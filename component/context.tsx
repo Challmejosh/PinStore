@@ -1,11 +1,13 @@
 "use client"
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import useFetch, { FetchData } from "./useFetch";
 import { CartData } from "./cart/cart";
+import { toast } from "react-toastify";
 interface ContextValue{
     data: FetchData[]| null;
     pending: boolean;
     handleCart: (arr: FetchData[],item:FetchData)=>void;
+    detailAddtoCart: (item:FetchData)=>void;
     cartIncrement: (item:FetchData)=>void;
     cartDecrement: (item:FetchData)=>void;
     cart: CartData[];
@@ -28,7 +30,8 @@ const initial = {
     totalWishlist: 0,
     delCart: ()=>null,
     wishlist: [],
-    addWishlist: ()=>null
+    addWishlist: ()=>null,
+    detailAddtoCart: ()=>  null
 }
 interface Children{
     children: React.ReactNode
@@ -38,55 +41,103 @@ const Context = ({children}: Children) => {
     const {data,pending} = useFetch("https://dummyjson.com/products")
     const [cart,setCart] = useState<CartData[]>([])
     const [wishlist,setWishlist] = useState<FetchData[]>([])
+
     const handleCart = (arr: FetchData[],item:FetchData)=>{
         const find = arr.find((itm: FetchData)=> itm?.id === item?.id )
         if(find){
             const check = cart?.find((prod:FetchData)=> prod?.id === find?.id)
             if(check){
-                alert("already in cart")
+                toast("already in cart")
             }else{
-                setCart(prev => [...prev, {...find, quantity: Number(1)}] )
+                setCart(prev =>{
+                    const updatedCart = [...prev, {...find, quantity: Number(1)}]
+                    // save to local storage
+                    localStorage.setItem("cart",JSON.stringify(updatedCart))
+                    return updatedCart 
+                })
+                toast("added to cart")
+            }
+
+        }
+    }
+    const detailAddtoCart = (item:FetchData)=>{
+        const find = data?.find((itm: FetchData)=> itm?.id === item?.id )
+        if(find){
+            const check = cart?.find((prod:FetchData)=> prod?.id === find?.id)
+            if(check){
+                toast("already in cart")
+            }else{
+                setCart(prev => { 
+                    const updatedCart = [...prev, {...find, quantity: Number(1)}]
+                    // save to local storage
+                    localStorage.setItem("cart",JSON.stringify(updatedCart))
+                    return updatedCart
+            } )
+                toast("add to cart")
             }
 
         }
     }
     const cartIncrement = (item: FetchData): void => {
-        setCart(prev =>
-            prev
-            .map((prod: CartData) =>
-                prod.id === item.id
-                ? { ...prod, quantity: prod.quantity + Number(1) }
-                : prod
-            )
+        setCart(prev =>{
+            const updatedCart = prev.map((prod: CartData) =>prod.id === item.id? { ...prod, quantity: prod.quantity + Number(1) }: prod)
+            // save to local storage
+            localStorage.setItem("cart",JSON.stringify(updatedCart))
+            return updatedCart
+        }
         );
     };
     const cartDecrement = (item: FetchData): void => {
-        setCart(prev =>
-            prev
-            .map((prod: CartData) =>
-                prod.id === item.id
-                ? { ...prod, quantity: prod.quantity - Number(1) }
-                : prod
-            )
-            .filter(prod => prod.quantity > 0) 
+        setCart(prev => {
+           const updateCart = prev.map((prod: CartData) =>prod.id === item.id? { ...prod, quantity: prod.quantity - Number(1) }: prod)
+            .filter(prod => prod.quantity > 0)
+            // save to local storage
+            localStorage.setItem("cart",JSON.stringify(updateCart))
+            return updateCart
+        }
         );
     };
     const cartTotal: number = cart.reduce((acct,item)=> acct + item?.price * item?.quantity, 0);
     const totalQuantity: number = cart.reduce((acct,item)=> acct + item?.quantity, 0);
     const totalWishlist: number = wishlist.length;
-    const delCart = (item: CartData)=>{
-        setCart(prev => prev.filter((itm) => itm?.id !== item?.id))
+    const delCart = (item: CartData) => {
+        setCart(prev => {
+            const updatedCart = prev.filter((itm) => itm?.id !== item?.id);
+            // save to local storage
+            localStorage.setItem("cart", JSON.stringify(updatedCart)); 
+            return updatedCart;
+        });
+    };
+const addWishlist = (item: FetchData) => {
+    const check = wishlist.find((itm) => itm?.id === item?.id);
+    if (check) {
+        toast("already in wishlist");
+    } else {
+        const updatedWishlist = [...wishlist, item];
+        setWishlist(updatedWishlist);
+        // save to localstorage
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        toast("added to wishlist");
     }
-    const addWishlist = (item: FetchData)=>{
-        const check = wishlist.find((itm)=>itm?.id === item?.id)
-        if(check){
-            alert("already in wishlist")
+};
+    // useEffect for localStorage
+
+    useEffect(()=>{
+        const getCart = localStorage.getItem("cart")
+        const getWishlist = localStorage.getItem("wishlist")
+        if(getCart){
+            setCart(JSON.parse(getCart))
         }else{
-            setWishlist([...wishlist, item])
+            setCart([])
         }
-    }
+        if(getWishlist){
+            setWishlist(JSON.parse(getWishlist))
+        }else{
+            setWishlist([])
+        }
+    },[])
     return ( 
-        <AppContext.Provider value={{data,pending,cart,handleCart,cartIncrement,cartDecrement,cartTotal,delCart,wishlist,addWishlist,totalQuantity,totalWishlist}}>
+        <AppContext.Provider value={{data,pending,cart,handleCart,cartIncrement,cartDecrement,cartTotal,delCart,wishlist,addWishlist,totalQuantity,totalWishlist,detailAddtoCart}}>
             {children}
         </AppContext.Provider>
      );

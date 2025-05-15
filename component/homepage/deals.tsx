@@ -15,15 +15,15 @@ const Deals = () => {
         return String((first + second).toFixed(2))
     }
     return ( 
-        <div className="flex h-fit flex-col gap-2 items-center justify-center ">
+        <div className="flex flex-col gap-2 items-center justify-center ">
             <Topic topic={topic} subtext={subtext} />
             {pending && 
                 <div className="h-[600px] flex items-center justify-center ">
-                    Loading...
+                    <div className="loader"></div>
                 </div>
             }
             {!pending && (
-                <div className="flex flex-col lg:flex-row justify-between gap-3 items-start h-full md:h-[400px] w-full ">
+                <div className="flex flex-col lg:flex-row justify-between gap-3 items-start h-full w-full ">
                     <div className="flex flex-col h-full items-start justify-between p-3 rounded-lg border border-[#E5E7EB] w-full ">
                         {data?.slice(0,2)?.map((item,index)=>(
                             <div key={item?.id} className={`${index === 1 && "border-t border-t-[#E5E7EB] " } w-full flex flex-col md:flex-row items-start justify-between gap-1 `}>

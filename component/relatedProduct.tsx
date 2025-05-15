@@ -1,3 +1,4 @@
+"use client"
 import useFetch from "./useFetch";
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -14,7 +15,7 @@ interface Prop{
     text: string
 }
 const Related = ({text}:Prop) => {
-    const {addWishlist} = useContext(AppContext)
+    const {addWishlist,handleCart} = useContext(AppContext)
     const {data,pending} = useFetch(`https://dummyjson.com/products/category/${text}`)
     const cal = (init: number,sec: number)=>{
         const first: number = Number(Math.round(init).toFixed(2))
@@ -26,14 +27,17 @@ const Related = ({text}:Prop) => {
             {/* <Topic topic={topic} subtext={subtext} category={text} /> */}
             {pending && 
             <div className="h-[300px] flex items-center justify-center ">
-                Loading...
+                <div className="loader"></div>
             </div>
             }
             {!pending && (
-                <div className="">
+                <div className="w-full h-full ">
                     {(!data) && 
                     (
-                        <div>empty</div>
+                        <div className="w-full h-full flex flex-col items-center justify-center " >
+                            <div className="loader"></div>
+                            <div className="">Not found</div>
+                        </div>
                     )
                     }
                 </div>
@@ -55,7 +59,7 @@ const Related = ({text}:Prop) => {
                                                 <img src={item?.images[0]} alt={item?.title} className="object-contain" />
                                             </p>
                                             <div className="flex w-full items-center justify-end ">
-                                                <div className="shadow-lg p-2 cursor-pointer flex items-center justify-center bg-red-200 rounded-full w-fit h-fit overflow-hidden ">
+                                                <div onClick={()=>handleCart(data,item)} className="shadow-lg p-2 cursor-pointer flex items-center justify-center bg-red-200 rounded-full w-fit h-fit overflow-hidden ">
                                                     <p className="">add to cart</p>
                                                 </div>
                                             </div>
@@ -128,7 +132,7 @@ const Related = ({text}:Prop) => {
                                             <img src={item?.images[0]} alt={item?.title} className="object-contain" />
                                         </p>
                                         <div className="flex w-full items-center justify-end ">
-                                            <div className="shadow-lg p-2 border flex items-center justify-center bg-red-200 rounded-full w-fit h-fit overflow-hidden ">
+                                            <div onClick={()=>handleCart(data,item)} className="shadow-lg p-2 cursor-pointer flex items-center justify-center bg-red-200 rounded-full w-fit h-fit overflow-hidden ">
                                                 <p className="">add to cart</p>
                                             </div>
                                         </div>

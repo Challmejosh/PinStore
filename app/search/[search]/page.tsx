@@ -12,12 +12,12 @@ const Page = async ({params}:Prop) => {
     const data = await fetchData.json()
     const products = data.products
     return ( 
-        <div className="w-full flex p-5 flex-col gap-3 items-center justify-center ">
+        <div className="w-full h-full flex p-5 flex-col gap-3 items-center justify-center ">
             <div className="filterBanner w-full h-[200px] ">
                 <MiniText text="Grocery store with different treasures" subtext="We have prepared special discounts for you on grocery products..." />
             </div>
             {data.total === 0 && (
-                <p className="">Loading...</p>
+                <p className="loader"></p>
             ) }
             {data.total > 0 && 
             <AllProducts products={products} />

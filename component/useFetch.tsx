@@ -42,12 +42,16 @@ const useFetch = (url: string) => {
             const res = await fetch(url);
             const json = await res.json();
             setData(json?.products);
-            setPending(false)
+            setTimeout(()=>{
+                setPending(false)
+            },2000)
         } catch (error) {
             console.error('Fetch error:', error);
             setData(null);
         } finally {
-            setPending(false);
+            setTimeout(()=>{
+                setPending(false);
+            },2000)
         }
         };
 

@@ -10,7 +10,7 @@ interface Prop{
     product: FetchData
 }
 const Detail = ({product}:Prop) => {
-    const {addWishlist} = useContext(AppContext)
+    const {addWishlist,detailAddtoCart} = useContext(AppContext)
     const [tab,setTab] = useState<string>('description')
     const cal = (init: number,sec: number)=>{
         const first: number = Number(Math.round(init).toFixed(2))
@@ -60,7 +60,7 @@ const Detail = ({product}:Prop) => {
                             <p className="">1</p>
                             <p className="cursor-pointer">+</p>
                         </div>
-                        <div className="px-5 py-3 rounded-[5px]  cursor-pointer flex items-center gap-2 justify-center bg-[#16A34A] ">
+                        <div onClick={()=>detailAddtoCart(product)} className="px-5 py-3 rounded-[5px]  cursor-pointer flex items-center gap-2 justify-center bg-[#16A34A] ">
                             <BriefcaseBusiness />
                             <p className="text-white">add to cart</p>
                         </div>
@@ -85,8 +85,8 @@ const Detail = ({product}:Prop) => {
                             </p>
                         </div>
                     </div>
-                    <div className="flex cursor-pointer items-center justify-start gap-2 ">
-                        <Heart onClick={()=>addWishlist(product)} className="cursor-pointer" />
+                    <div onClick={()=>{addWishlist(product)}} className="flex cursor-pointer items-center justify-start gap-2 ">
+                        <Heart />
                         <p className="">Add to wishlist</p>
                     </div>
                 </div>

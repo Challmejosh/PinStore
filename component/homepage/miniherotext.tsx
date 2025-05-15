@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 type Prop = {
     text: string
@@ -12,10 +13,10 @@ const MiniText = ({text,subtext}:Prop) => {
                 <p className="text-md font-semibold ">{text}</p>
                 <p className="text-[#6B7280] text-xs  ">{subtext}</p>
             </div>
-            <div className="flex items-center justify-center gap-1 px-5 py-3 rounded-full bg-white  ">
+            <Link href={`/product`} className="flex items-center justify-center gap-1 px-5 py-3 rounded-full bg-white  ">
                 <p className="">Shop now</p>
                 <ArrowRight />
-            </div>
+            </Link>
         </div>
      );
 }

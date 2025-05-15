@@ -29,7 +29,7 @@ const LastSection = () => {
         },
     ]
     return ( 
-        <div className="h-full flex md:hidden lg:flex w-full ">
+        <div className="h-full flex items-start justify-between flex-wrap w-full ">
             <div className="grid sm:grid-cols-2 gap-2 lg:grid-cols-4 items-center justify-between ">
                 {array?.map((item,index)=>(
                     <div className="flex items-start justify-between gap-2 " key={index}>

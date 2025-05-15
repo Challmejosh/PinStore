@@ -11,7 +11,7 @@ const Topic = ({topic,subtext, category }: Prop) => {
             </div>
             {topic !== "Top Categories" &&
             <Link href={`/category/${category}`} className="border rounded-full py-1 w-[120px] sm:w-fit px-3 sm:px-2 sm:py-1 cursor-pointer flex items-center justify-center ">
-                <p className="flex text-[12px] "> {topic === "deals of the day" ? "view all" : "view more"}</p>
+                <p className="flex text-xs "> {topic === "deals of the day" ? "view all" : "view more"}</p>
                 <ArrowRight size={14} className="hidden sm:block " />
             </Link>
              }

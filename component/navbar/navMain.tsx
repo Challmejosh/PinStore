@@ -1,13 +1,17 @@
-"use client"
-import { Heart, ShoppingCart } from "lucide-react";
+"use server"
 import Image from "next/image";
-import Link from "next/link";
 import Searchbar from "./searchbar";
-import { useContext } from "react";
-import { AppContext } from "../context";
-
-const Navmain = () => {
-    const {totalQuantity,totalWishlist} = useContext(AppContext)
+import Authentication from "./authentication";
+import WishAndCart from "./wishandcart";
+export interface Auth{
+    expires: string;
+    user: {
+        email: string
+        name: string
+        image:string
+    }
+}
+const Navmain = async () => {
     return ( 
         <div className="w-full p-3 flex flex-col gap-2 border-t border-t-[#E5E7EB]">
             <div className="lg:mx-28 flex items-center justify-between gap-3">
@@ -36,20 +40,8 @@ const Navmain = () => {
                 </div>
                 <div className=" flex items-center justify-center gap-1 ">
                     <Image src="/user.png" alt="user" width={20} height={20} className="object-contain" />
-                    <div className="w-full text-xs flex flex-col items-start justify-center ">
-                        <p className="">Sign in</p>
-                        <p className="font-semibold">Account</p>
-                    </div>
-                    <div className="w-full flex items-center justify-center gap-1 ">
-                        <Link href={"/wishlist"} className="relative p-2 ">
-                            <p className="font-semibold absolute top-0 right-0 text-red-400 ">{totalWishlist}</p>
-                            <Heart />
-                        </Link>
-                        <Link href={"/cart"} className="relative p-2 " >
-                            <p className="font-semibold absolute top-0 right-0 text-red-400 ">{totalQuantity}</p>
-                            <ShoppingCart />
-                        </Link>
-                    </div>
+                    <Authentication />
+                    <WishAndCart />
                 </div>
             </div>
             <div className="w-full md:hidden flex items-center gap-1 justify-start ">

@@ -6,10 +6,12 @@ import { useContext } from "react";
 const Product = () => {
     const {data,pending} = useContext(AppContext)
     return ( 
-        <div className="">
+        <div className="w-full h-full flex items-center justify-center ">
             {pending && 
             (
-                <div className="">Loading...</div>
+                <div className="h-full w-full flex items-center justify-center ">
+                    <div className="loader"></div>
+                </div>
             )}
             {!pending&&
             <AllProducts products={data} />

@@ -16,16 +16,10 @@ const Sublink = async () => {
                     <CategorySelect list={list} />
                     <Link href={`/category/groceries`} >Groceries</Link>
                     <Link href={`/category/smartphones`} >Smartphone</Link>
-                    <Link href="/blog" >Blog</Link>
                     <Link href="/contact" >Contact</Link>
                 </div>
                 <div className="flex items-center justify-center flex-wrap ">
                     <Link href={`/product`} >All Products</Link>
-                    <select title="Finished" name="" id="" className="text-red-600 cursor-pointer ">
-                        <option value="" className="text-red-600 cursor-pointer flex gap-1 items-center justify-center ">
-                            Almost Finished
-                        </option>
-                    </select>
                 </div>
             </div>
         </div>

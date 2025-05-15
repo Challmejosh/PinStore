@@ -39,7 +39,7 @@ export interface CartData{
 const Cart = () => {
     const {cart} = useContext(AppContext)
      return ( 
-        <div className="flex flex-col items-center justify-center ">
+        <div className="w-full flex flex-col items-center justify-center ">
             {cart.length <= 0 &&<div className="flex flex-col gap-3 justify-center items-center ">
                 <p className="relative w-[200px] h-[150px] ">
                     <Image src={"/empty-cart.png"} alt="empty-cart" className="object-contain" fill  />
