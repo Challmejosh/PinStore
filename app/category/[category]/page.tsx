@@ -2,7 +2,7 @@ import Product from "@/component/categoryproduct";
 
 
 
-const Page = ({category}: {category: string}) => {
+const Page = ({ params: { category } }: { params: { category: string } }) => {
     
     return ( 
         <div className="">
