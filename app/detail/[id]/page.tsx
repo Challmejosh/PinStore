@@ -1,21 +1,11 @@
-import Detail from "@/component/detail";
-import { FetchData } from "@/component/useFetch";
+"use client"
+import DetailMain from "@/component/detailmain";
+import { useParams } from "next/navigation";
 
-interface Prop{
-    params:{
-        id: number
-    }
-}
-const Page = async ({params} : Prop) => {
-    const {id} = await params
-    const data = await fetch(`https://dummyjson.com/products/${id}`)
-    const product:FetchData = await data.json()
 
-    return ( 
-        <div className="">
-            <Detail product={product} />
-        </div>
-     );
+const Page = () => {
+    const params = useParams()
+    return <DetailMain id={Number(params?.id)} />
 }
  
 export default Page;
