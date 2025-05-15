@@ -7,7 +7,7 @@ interface Prop{
     }
 }
 const Page = async ({params}:Prop) => {
-    const { search } = await params 
+    const { search } = params 
     const fetchData = await fetch(`https://dummyjson.com/products/search?q=${search}`)
     const data = await fetchData.json()
     const products = data.products
