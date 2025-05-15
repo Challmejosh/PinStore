@@ -1,11 +1,13 @@
-
+"use client"
 import Search from "@/component/search";
+import { useParams } from "next/navigation";
 
 
-export default async function Page({ params: { search } }: { params: { search: string } }) {
+export default function Page() {
+    const params = useParams()
     return(
         <div className="">
-            <Search search={search} />
+            <Search search={String(params?.search)} />
         </div>
     )
 }
