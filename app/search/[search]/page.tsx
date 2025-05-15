@@ -1,12 +1,12 @@
 import AllProducts from "@/component/allproducts"
 import MiniText from "@/component/homepage/miniherotext"
 
-interface Prop{
+interface PageProp{
     params:{
         search: string
     }
 }
-const Page = async ({params}:Prop) => {
+const Page = async ({params}:PageProp) => {
     const { search } = params 
     const fetchData = await fetch(`https://dummyjson.com/products/search?q=${search}`)
     const data = await fetchData.json()
