@@ -1,13 +1,11 @@
-import Product from "@/component/categoryproduct";
 
+"use client";
+import dynamic from 'next/dynamic';
 
+const Product = dynamic(() => import('@/component/categoryproduct'), { ssr: false });
 
-export default async function Page ({ params: { category } }: { params: { category: string } }) {
-    
-    return ( 
-        <div className="">
-            {category && (<Product text={category} />)}
-        </div>
-     );
-}
- 
+const Page = ({ params }: { params: { category: string } }) => {
+  return <Product text={params.category} />;
+};
+
+export default Page;

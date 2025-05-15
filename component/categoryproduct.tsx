@@ -1,9 +1,7 @@
 "use client"
-// import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// import { SwiperSlide,Swiper } from "swiper/react";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 import useFetch from './useFetch';
