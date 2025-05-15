@@ -4,7 +4,7 @@ import MiniText from "./homepage/miniherotext"
 interface Prop{
     search: string
 }
-const Search = async ({search}:Prop) => {
+const Search  = async ({search}:Prop) => {
     const fetchData = await fetch(`https://dummyjson.com/products/search?q=${search}`)
     const data = await fetchData.json()
     const products = data.products

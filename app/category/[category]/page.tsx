@@ -2,8 +2,8 @@ import Product from "@/component/categoryproduct";
 
 
 
-const Page = async ({ params: { category } }: { params: { category: string } }) => {
-    
+async function Page ({ params }: { params: { category: string } }) {
+    const { category } = params
     return ( 
         <div className="">
             {category && (<Product text={category} />)}

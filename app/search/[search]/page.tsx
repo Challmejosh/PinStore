@@ -2,7 +2,7 @@
 import Search from "@/component/search";
 
 
-const Page = async ({ params: { search } }: { params: { search: string } }) => {
+async function Page({ params: { search } }: { params: { search: string } }) {
     return(
         <div className="">
             <Search search={search} />
