@@ -140,6 +140,7 @@ const addWishlist = (item: FetchData) => {
     },[])
     const paymentSuccess = ()=>{
         localStorage.removeItem("cart")
+        setCart([])
     }
     return ( 
         <AppContext.Provider value={{data,pending,cart,handleCart,cartIncrement,cartDecrement,cartTotal,delCart,wishlist,addWishlist,totalQuantity,totalWishlist,detailAddtoCart,paymentSuccess}}>
