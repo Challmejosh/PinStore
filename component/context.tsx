@@ -17,6 +17,7 @@ interface ContextValue{
     delCart: (item: CartData)=>void
     wishlist: FetchData[]
     addWishlist: (item: FetchData)=>void
+    paymentSuccess: ()=>void
 }
 const initial = {
     data: [],
@@ -31,7 +32,8 @@ const initial = {
     delCart: ()=>null,
     wishlist: [],
     addWishlist: ()=>null,
-    detailAddtoCart: ()=>  null
+    detailAddtoCart: ()=>  null,
+    paymentSuccess: ()=>null
 }
 interface Children{
     children: React.ReactNode
@@ -136,8 +138,11 @@ const addWishlist = (item: FetchData) => {
             setWishlist([])
         }
     },[])
+    const paymentSuccess = ()=>{
+        localStorage.removeItem("cart")
+    }
     return ( 
-        <AppContext.Provider value={{data,pending,cart,handleCart,cartIncrement,cartDecrement,cartTotal,delCart,wishlist,addWishlist,totalQuantity,totalWishlist,detailAddtoCart}}>
+        <AppContext.Provider value={{data,pending,cart,handleCart,cartIncrement,cartDecrement,cartTotal,delCart,wishlist,addWishlist,totalQuantity,totalWishlist,detailAddtoCart,paymentSuccess}}>
             {children}
         </AppContext.Provider>
      );

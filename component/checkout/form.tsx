@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { PaystackButton } from "react-paystack";
 
 const Form = () => {
-    const {cartTotal} = useContext(AppContext)
+    const {cartTotal,paymentSuccess} = useContext(AppContext)
     const [firstName, setFirstName] = useState<string>(""); 
     const [lastName, setLastName] = useState<string>(""); 
     const [email, setEmail] = useState<string>("");
@@ -15,15 +15,28 @@ const Form = () => {
     const [apartment, setApartment] = useState<string>("");
     const [town, setTown] = useState<string>("");
     const [country, setCountry] = useState<string>("");
-    const [state, setstate] = useState<string>("");
-    const [phone, setPhone] = useState<number>();
+    const [state, setState] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
     const [zipCode, setZipCode] = useState<string>("");
+
     const router = useRouter()
     const submit = ()=>{
         router.push('/')
+        setFirstName("");
+        setLastName("")
+        setEmail("")
+        setCompany("")
+        setStreet("")
+        setApartment("")
+        setTown("")
+        setCountry("")
+        setState("")
+        setPhone("")
+        setZipCode("")
     }
     const success = ()=>{
         submit()
+        paymentSuccess()
     }
     const cancel = ()=>{
         submit()
@@ -77,11 +90,11 @@ const Form = () => {
                         {/* Country */}
                         <div className="w-full">
                             <label htmlFor="country" className="">Country</label>
-                            <select id="country" title="country" className="w-full p-3 cursor-pointer border flex border-[#D1D5DB] rounded-[8px]  " required  name="" >
+                            <select value={country} onChange={(event: React.ChangeEvent<HTMLSelectElement>)=>setCountry(event.target.value)} id="country" title="country" className="w-full p-3 cursor-pointer border flex border-[#D1D5DB] rounded-[8px]  " required  name="" >
                                 <option value="" className="">select a country</option>
-                                <option value="" className="">United states</option>
-                                <option value="" className="">England</option>
-                                <option value="" className="">Nigeria</option>
+                                <option value="United States" className="">United states</option>
+                                <option value="England" className="">England</option>
+                                <option value="Nigeria" className="">Nigeria</option>
                             </select>
                         </div>
                         {/* street address */}
@@ -101,11 +114,11 @@ const Form = () => {
                         {/* state */}
                         <div className="w-full ">
                             <label htmlFor="state" className="">Country</label>
-                            <select id="state" title="state" className="w-full p-3 cursor-pointer border flex border-[#D1D5DB] rounded-[8px]  " required  name="" >
+                            <select value={state} onChange={(event: React.ChangeEvent<HTMLSelectElement>)=>setState(event.target.value)} id="state" title="state" className="w-full p-3 cursor-pointer border flex border-[#D1D5DB] rounded-[8px]  " required  name="" >
                                 <option value="" className="">select a state</option>
-                                <option value="" className="">city</option>
-                                <option value="" className="">city</option>
-                                <option value="" className="">city</option>
+                                <option value="" className="">California</option>
+                                <option value="" className="">New York</option>
+                                <option value="" className="">Texas</option>
                             </select>
                         </div>
                         {/* Zip code */}
@@ -116,7 +129,7 @@ const Form = () => {
                         {/* phone */}
                         <div className="w-full">
                             <label htmlFor="phone" className="">Phone </label>
-                            <input required id="phone" type="tel" className="w-full p-2 border flex border-[#D1D5DB] rounded-[8px]  " inputMode="numeric" placeholder="" value={phone} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPhone(e.target.value)} />
+                            <input required id="phone" type="text" className="w-full p-2 border flex border-[#D1D5DB] rounded-[8px]  " inputMode="numeric" placeholder="" value={phone} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setPhone(e.target.value)} />
                         </div>
                         {/* email */}
                         <div className="w-full">
