@@ -1,11 +1,12 @@
 import Product from "@/component/categoryproduct";
 
-interface PageProp {
-    params:{
-        category: string
-    }
-}
-const Page = async ({params}: PageProp) => {
+
+type PageProps = {
+  params: {
+    category: string;
+  };
+};
+const Page = async ({params}: PageProps) => {
     const {category} = params
     return ( 
         <div className="">
