@@ -6,7 +6,7 @@ type PageProps = {
     category: string;
   };
 };
-const Page = async ({params}: PageProps) => {
+const Page = ({params}: PageProps) => {
     const {category} = params
     return ( 
         <div className="">
